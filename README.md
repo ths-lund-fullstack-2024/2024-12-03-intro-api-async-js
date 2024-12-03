@@ -105,19 +105,19 @@ När en användare klickar på en knapp eller laddar en sida, så skommer fronen
 
 Fetch är ett modern verktyg som är gjort för att kunna göra hämtnignar av _( oftast extern )_ data som tar lite tid. JS är singeltrådigt, vilket betyder att den bara kan göra en sak åt gången hela tiden, och gör vi då en hämtning som tar tre sekunder så kommer vår applikation att frysa och använderna kommer inte kunna göra något.
 
-Det här vill vi motverka givetvis, och då har vi fetch.  Fetch kan inleda hämtningar utan att låsa applikationen, och när sen väl hämtningen är komplett så kan fetch putta in den hämtningen i flödet igen och vår applikation kan göra något med data som kommer tillbaka. 
+Det här vill vi motverka givetvis, och då har vi fetch. Fetch kan inleda hämtningar utan att låsa applikationen, och när sen väl hämtningen är komplett så kan fetch putta in den hämtningen i flödet igen och vår applikation kan göra något med data som kommer tillbaka.
 
-Så summerat, fetch är till för att göra nätverksförfrågningar över HTTP och är en modern lösning som ett alternativ till det äldre XMLHttpRequest. Ni kan läsa mer specifikt om det här:  [XMLHttpRequest - JavaScript.info](https://javascript.info/xmlhttprequest)
+Så summerat, fetch är till för att göra nätverksförfrågningar över HTTP och är en modern lösning som ett alternativ till det äldre XMLHttpRequest. Ni kan läsa mer specifikt om det här: [XMLHttpRequest - JavaScript.info](https://javascript.info/xmlhttprequest)
 
 ### Nedbrytning av Fetch
 
--  **Returnerar ett Promise**: Vi skickar ett request om någon data och vi får ett löfte tillbaka om att data kommer att komma så småningom, oftast inom 100-tals millisekunder, men vi är välkomna att göra andra saker under tiden. När sen data väl är hämtat och redo så kommer vi får tillgång till ett Response-objekt som kommer att innehålla information om vår hämtning, om den fick igenom, failade och så vidare. Även data får vi tillgång till om det finns sådan. 
+- **Returnerar ett Promise**: Vi skickar ett request om någon data och vi får ett löfte tillbaka om att data kommer att komma så småningom, oftast inom 100-tals millisekunder, men vi är välkomna att göra andra saker under tiden. När sen data väl är hämtat och redo så kommer vi får tillgång till ett Response-objekt som kommer att innehålla information om vår hämtning, om den fick igenom, failade och så vidare. Även data får vi tillgång till om det finns sådan.
 
 - **Promise-baserad asynkroniskt mönster**: Fetch ger oss tillgång till metoder som vi kan använda när vår data är klar eller ett error har skett. De kommer i from av `.then()` och `.catch()`. En av dessa kommer alltid att anropas, antingen att saker och ting gick vägen eller att det inte gjorde det. Dessa metoder tar emot en callback-funktion som argument som vi definierar, alltså vi som avgör vad som ska hända.
 
-- **Simplifierad syntax**: syntaxen är enklare och lättare an använda än den äldre metoden XLHttpRequest. 
+- **Simplifierad syntax**: syntaxen är enklare och lättare an använda än den äldre metoden XLHttpRequest.
 
-- **Flexibilitet med ett options-objekt**: fetch tar emot flera parameterar , bland annat URL som vi vill skicka förfrågan till men även ett valfritt options-objekt som vi kan använda för att konfigurera vårt request innan det skickas iväg. 
+- **Flexibilitet med ett options-objekt**: fetch tar emot flera parameterar , bland annat URL som vi vill skicka förfrågan till men även ett valfritt options-objekt som vi kan använda för att konfigurera vårt request innan det skickas iväg.
 
 - **Response-objektet**: Detta objekt är det som returneras av fetch och innehåller all infromation som vi behöver, bland annat statusen på hämtningen och förhoppningsvis data som vi efterfrågade.
 
@@ -127,6 +127,39 @@ För att sammanfatta, fetch är ett dynamiskt och mångsidigt verktyg som gör d
 
 ### Syntax of fetch
 
-### Common options
+- Med .then()
 
-### Response Object
+  ```js
+  fetch(url, options?)
+    .then((res) => res.json())
+    .then((data) => { console.log(data) })
+    .catch((error) => { console.log(error)});
+  ```
+
+  Ett klassiskt användningsexempel av en fetch. `fetch()` returnerar ett response om det går igenom. Detta repsonse fångas upp av den första `.then()` som i sin tur returnerar själva data som ligger inbäddad i response-objektet. Denna data tar den andra `.then()` hand om och loggar ut. Skulle ett fel ske någonstans i processen så kommer detta fel att fångas upp i `catch()` där vi sen kan utföra någon form av logik för att hantera det.
+
+- med async/await
+
+```js
+async function fetchSomething() {
+  try {
+    const response = await fetch(url, options?);
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+```
+
+"url" är själva adressen till den datan du efterfrågar medan "options" innehåller inställningar för requestet såsom headers, metod och body bland annat.
+
+"fetch" retunerar e "promise" som alltid kommer att resultera i ett "response" oavsett om hämtning är giltig eller inte. Det är bara om själva "response" är ogiltig som vi hamnar i "catch"-delen.
+
+### Vanliga options
+
+..kommer senare
+
+### Responseobjektet
+
+..kommer senare
