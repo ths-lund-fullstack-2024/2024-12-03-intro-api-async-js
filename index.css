@@ -1,10 +1,29 @@
-/* HTML: <div class="loader"></div> */
+.user-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.card {
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ########## Loader styling ########## */
+
 .loader {
   width: fit-content;
   font-weight: bold;
   font-family: monospace;
   font-size: 20px;
-  background: radial-gradient(circle closest-side,#000 94%,#0000) right/calc(200% - 1em) 100%;
+  background: radial-gradient(circle closest-side, #000 94%, #0000)
+    right/calc(200% - 1em) 100%;
   animation: l24 1s infinite alternate linear;
 }
 .loader::before {
@@ -12,11 +31,13 @@
   line-height: 1em;
   color: #0000;
   background: inherit;
-  background-image: radial-gradient(circle closest-side,#fff 94%,#000);
-  -webkit-background-clip:text;
-          background-clip:text;
+  background-image: radial-gradient(circle closest-side, #fff 94%, #000);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
-@keyframes l24{
-  100%{background-position: left}
+@keyframes l24 {
+  100% {
+    background-position: left;
+  }
 }
