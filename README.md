@@ -1,9 +1,29 @@
 # Introduktion till API:er, Fetch och JSON
 
 <details open >
-  <sumary>Table of content</sumary>
+  <summary>Innehåll</summary>
 
-</details>
+- [Vad är JSON?](#vad-är-json)
+
+  - [Konvertera mellan JSON och JavaScript](#konvertera-mellan-json-och-javascript)
+
+- [Vad är ett API?](#vad-är-ett-api)
+
+  - [Definition](#definition)
+  - [Vardagsexempel](#vardagsexempel)
+  - [Hur funkar ett API](#hur-funkar-ett-api)
+  - [Typer av API:er](#typer-av-apier)
+  - [Hur API:er används i frontend](#hur-apier-används-i-frontend)
+
+- [Fetch API](#fetch-api)
+
+  - [Nedbrytning av Fetch](#nedbrytning-av-fetch)
+  - [Syntax](#syntax)
+  - [Vanliga options](#vanliga-options)
+  - [Responseobjektet](#responseobjektet)
+
+- [Kodexempel](#kodexempel)
+  </details>
 
 ## Vad är JSON?
 
@@ -26,6 +46,8 @@
 - Plattformoberoende: JSON fungerar oavsett vilket programmeringsspråk som används.
 - Nästan alla moderna API:er använder JSON för att skicka och ta emot data.
 
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
+
 ### Konvertera mellan JSON och JavaScript
 
 Eftersom JS och JSON är så närbesläktat med varandra så förstår JS JSON per default. Alltså, om en JS-applikation tar emot JSON data så kan den direkt _(implict)_ konvertera det till giltig javascript. Dock så kan inte andra språk det utan vi måste konvertera där emellan. Så om data ska skicka iväg från en JS-applikation så måste det göras om till JSON först. Detta görs med två befintliga metoder.
@@ -38,11 +60,15 @@ Denna metoden koverterar JS-data till giltig JSON, alltså till en lång sträng
 
 Denna metoden koverterar JSON tillbaks till giltig JavaScript.
 
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
+
 ## Vad är ett API?
 
 ### Definition
 
 Ett API är som en brygga mellan olika program som gör att de kan prata med varandra. Ett API döljer komplexiteten i hur ett system eller flera system fungerar och erbjuder istället en tydligt "manual" / "kommunikationsvägar" för hur andra system kan interagera med det.
+
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
 
 ### Vardagsexempel
 
@@ -50,11 +76,15 @@ Ett API är som en brygga mellan olika program som gör att de kan prata med var
 
 - **Väderapp**: Din väderapp hämtar information om temperatur och väderförhållande från olika API:er, som i sin tur hämtar data från sensorer och databaser.
 
-### Hur funkar ett API ( kortvarianten )
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
+
+### Hur funkar ett API
 
 1. Tar emot en begäran eller förfrågan efter data _( request )_ från en klient.
 2. Tolkar och skickar vidare requestet till rätt resurser.
 3. Returnera ett svar, _( response )_ oftast i form av JSON till klienten. Sen kan klienten göra vad den vill med den här data som den får tillbaka.
+
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
 
 ### Typer av API:er
 
@@ -82,8 +112,11 @@ Ett API är som en brygga mellan olika program som gör att de kan prata med var
    - API:er som används för kommunikation mellan program , till exempel lokalt på datorn, till exempel mellan frontend och backend i en utvecklingsmiljö. Men även mellan till exempel Word och filsystemet på datorn.
 
 5. **Öppna och privata API:er**
+
    - **Öppna API:er**: kräver oftast ingen autentisering, till exemepl väderappar eller andra program som man använder dagligen.
    - **Stängda API:er**: Kräver autentisering och kan används inom organisationer. Men även publika API:er som vill begränsa användningen på olika sätt.
+
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
 
 ### Hur API:er används i frontend
 
@@ -101,6 +134,8 @@ När en användare klickar på en knapp eller laddar en sida, så skommer fronen
 
    - Ta bort data från applikationen, det requestet skickas till backend som i sin tur kanske validerar och säkerthetsställer att du får göra det eller inte.
 
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
+
 ## Fetch API
 
 Fetch är ett modern verktyg som är gjort för att kunna göra hämtnignar av _( oftast extern )_ data som tar lite tid. JS är singeltrådigt, vilket betyder att den bara kan göra en sak åt gången hela tiden, och gör vi då en hämtning som tar tre sekunder så kommer vår applikation att frysa och använderna kommer inte kunna göra något.
@@ -108,6 +143,8 @@ Fetch är ett modern verktyg som är gjort för att kunna göra hämtnignar av _
 Det här vill vi motverka givetvis, och då har vi fetch. Fetch kan inleda hämtningar utan att låsa applikationen, och när sen väl hämtningen är komplett så kan fetch putta in den hämtningen i flödet igen och vår applikation kan göra något med data som kommer tillbaka.
 
 Så summerat, fetch är till för att göra nätverksförfrågningar över HTTP och är en modern lösning som ett alternativ till det äldre XMLHttpRequest. Ni kan läsa mer specifikt om det här: [XMLHttpRequest - JavaScript.info](https://javascript.info/xmlhttprequest)
+
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
 
 ### Nedbrytning av Fetch
 
@@ -125,7 +162,9 @@ Så summerat, fetch är till för att göra nätverksförfrågningar över HTTP 
 
 För att sammanfatta, fetch är ett dynamiskt och mångsidigt verktyg som gör det enkelt och effektivt att göra HTTP-hämtningar i JS. Att det är löftest-baserat _(promise-based)_ gör att vår kod förenklas och det blir mer effektivt att skriva asynkronisk kod.
 
-### Syntax of fetch
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
+
+### Syntax
 
 - Med .then()
 
@@ -156,10 +195,136 @@ async function fetchSomething() {
 
 "fetch" retunerar e "promise" som alltid kommer att resultera i ett "response" oavsett om hämtning är giltig eller inte. Det är bara om själva "response" är ogiltig som vi hamnar i "catch"-delen.
 
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
+
 ### Vanliga options
 
-..kommer senare
+När du gör en **fetch-förfrågan** kan du skicka med ett "options"-objekt som låter dig konfigurera förfrågan. Detta används för att till exempel ange vilken HTTP-metod som ska användas (GET, POST, PUT, DELETE) eller om du behöver skicka data.
+
+Här är de vanligaste alternativen som nybörjare bör känna till:
+
+1. **`method`**: Specificerar vilken HTTP-metod som används.
+
+   - Exempel: `GET`, `POST`, `PUT`, `DELETE`.
+   - Standardvärdet är `GET`.
+
+   ```js
+   const options = {
+     method: "POST",
+   };
+   ```
+
+2. **`headers`**: Låter dig skicka extra information, såsom vilken typ av data du skickar (t.ex. JSON).
+
+   - Vanligt att specificera `Content-Type` när du skickar JSON-data.
+
+   ```js
+   const options = {
+     headers: {
+       "Content-Type": "application/json",
+     },
+   };
+   ```
+
+3. **`body`**: Innehåller data som du skickar till servern. Vanligtvis JSON-strängar.
+
+   - Används endast med metoder som skickar data (som `POST` och `PUT`).
+
+   ```js
+   const options = {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify({
+       name: "John Doe",
+       email: "john.doe@example.com",
+     }),
+   };
+   ```
+
+Exempel på en förfrågan med `options`:
+
+```js
+fetch("https://jsonplaceholder.typicode.com/posts", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    title: "Ny titel",
+    body: "Detta är ett exempel.",
+    userId: 1,
+  }),
+})
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+```
+
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
 
 ### Responseobjektet
 
-..kommer senare
+När du gör en **fetch-förfrågan** får du tillbaka ett **response-objekt**. Detta objekt innehåller information om svaret från servern och låter dig hantera både lyckade svar och fel.
+
+Vanliga egenskaper och metoder för response-objektet:
+
+1. **`status`**: HTTP-statuskoden som indikerar om förfrågan lyckades.
+
+   - `200–299`: Förfrågan lyckades.
+   - `400–499`: Klientfel (t.ex. felaktig URL).
+   - `500–599`: Serverfel.
+
+   ```js
+   fetch(url).then((response) => {
+     if (response.status === 200) {
+       console.log("Lyckades!");
+     } else {
+       console.error("Något gick fel!");
+     }
+   });
+   ```
+
+2. **`ok`**: En boolean som är `true` om statuskoden är mellan `200–299`, annars `false`.
+
+   ```js
+   fetch(url).then((response) => {
+     if (response.ok) {
+       console.log("Request lyckades!");
+     } else {
+       console.error("Fel inträffade:", response.status);
+     }
+   });
+   ```
+
+3. **Metoder för att läsa data**:
+
+   - **`response.json()`**: Om svaret innehåller JSON-data.
+   - **`response.text()`**: Om svaret är vanlig text.
+   - **`response.blob()`**: Om svaret är en fil (t.ex. en bild).
+
+   Exempel:
+
+   ```js
+   fetch(url)
+     .then((response) => response.json()) // Konverterar svaret till JSON
+     .then((data) => console.log(data)) // Gör något med datan
+     .catch((error) => console.error(error)); // Hanterar fel
+   ```
+
+4. **HTTP-header**: Om du vill läsa metadata om svaret.
+   - Exempel: Kolla vilken typ av innehåll som servern skickade.
+   ```js
+   fetch(url).then((response) => {
+     console.log(response.headers.get("Content-Type"));
+   });
+   ```
+
+[Tillbaks till toppen](#introduktion-till-apier-fetch-och-json)
+
+## Kodexempel
+
+Kodexempelet kan ni hitta i de övriga filerna. Det finns en `index.js`, `utilities.js`, `index.html` och `index.css`. Dessa filer tillsammans utgör exemplet som hämtar data från ett API som heter [JSONPlaceholder](https://jsonplaceholder.typicode.com/). Detta API används jättemycket av utvecklare i testsyfte där man snabbt behöver åtkomst till lite extern data.
+
+Exemplet hämtar användare från detta API:et och skriver ut de i DOM:en samt lite extra funktionlitet.

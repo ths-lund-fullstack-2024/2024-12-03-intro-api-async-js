@@ -1,3 +1,5 @@
+import { loader, main } from "./index.js";
+
 const baseURL = "https://jsonplaceholder.typicode.com";
 
 function createUserCard(user) {
@@ -15,7 +17,7 @@ function createUserCard(user) {
 
 function createUserPage(user) {
   const userPage = /*html*/ `
-    <div class="user-page">
+    <section class="user-page">
       <h3 class="name">${user.name}</h3>
       <p class="username">username: ${user.username}</p>
       <p class="phone">Phone: ${user.phone}</p>
@@ -25,9 +27,9 @@ function createUserPage(user) {
         <p>${user.address.street}</p>
       </div>
       <div class="actions">
-        <button>Back to user list</button>
+        <button id="back-btn">Back to user list</button>
       </div>
-    </div>
+    </section>
   `;
 
   return userPage;
@@ -45,24 +47,25 @@ async function getUserById(userId) {
   return user;
 }
 
-export function handleOnClick(event) {
-  // const target = event.target;
-  const { target } = event;
-  const closetsCard = target.closest(".card");
-
-  if (!closetsCard) return;
-
-  getUserById(closetsCard.id).then((user) => {
+function handleOnCardClick(card) {
+  insertLoaderToDOM();
+  getUserById(card.id).then((user) => {
     const userPageAsHtmlString = createUserPage(user);
-    const userList = document.querySelector(".user-list");
-    userList.innerHTML = userPageAsHtmlString;
+    main.innerHTML = userPageAsHtmlString;
   });
 }
 
+export function handleOnClick(event) {
+  const { target } = event;
+  const closetsCard = target.closest(".card");
+  if (closetsCard) handleOnCardClick(closetsCard);
+}
+
+function insertLoaderToDOM() {
+  main.innerHTML = loader.outerHTML;
+}
+
 export function insertUsersToDOM(users) {
-  const list = document.querySelector(".user-list");
-  const loader = document.querySelector(".loader");
   const usersAsHtmlString = users.map((user) => createUserCard(user)).join("");
-  list.insertAdjacentHTML("afterbegin", usersAsHtmlString);
-  list.removeChild(loader);
+  main.innerHTML = usersAsHtmlString;
 }

@@ -1,11 +1,10 @@
 import { getAllUsers, handleOnClick, insertUsersToDOM } from "./utilties.js";
 
-const userList = document.querySelector(".user-list");
+export const loader = document.querySelector(".loader");
+export const main = document.querySelector("main");
 
-userList.addEventListener("click", handleOnClick);
+main.addEventListener("click", handleOnClick);
 
 getAllUsers().then((users) => {
-  setTimeout(() => {
-    insertUsersToDOM(users);
-  }, 0);
+  insertUsersToDOM(users);
 });
